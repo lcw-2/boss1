@@ -3211,7 +3211,7 @@ class mainCog(commands.Cog):
 		repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
 		return await ctx.send(f"```보이스를 사용하지 않도록 설정하였습니다.!```")
 
-	################ 랜덤박스 ################ 
+	################ 럭키박스 ################ 
 	@commands.command(name=command[41][0], aliases=command[41][1:])
 	async def command_randombox_game(self, ctx : commands.Context, *, args : str = None):
 		if ctx.message.channel.id != basicSetting[7]:
@@ -3234,7 +3234,7 @@ class mainCog(commands.Cog):
 			if num_cong <= 0:
 				return await ctx.send(f'```추첨인원이 0보다 작거나 같습니다. 재입력 해주세요```')
 		except ValueError:
-			return await ctx.send('```추첨인원은 숫자로 입력 바랍니다\nex)!랜덤박스 1```')
+			return await ctx.send('```추첨인원은 숫자로 입력 바랍니다\nex)!럭키박스 1```')
 
 		if len(input_game_data) >= 2:
 			waiting_time : int = 30
@@ -3243,11 +3243,11 @@ class mainCog(commands.Cog):
 				if waiting_time <= 0 :
 					return await ctx.send(f'```대기시간이 0보다 작거나 같습니다. 재입력 해주세요```')
 			except ValueError:
-				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!랜덤박스 1 60```')
+				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!럭키박스 1 60```')
 
 		reaction_emoji : list = ["✅", "❌"]
 
-		embed = discord.Embed(title  = f"📦 랜덤박스! 묻고 더블로 가! (잔여시간 : {waiting_time}초)", description = f"참가를 원하시면 ✅를 클릭해주세요!", timestamp = datetime.datetime.now(),
+		embed = discord.Embed(title  = f"📦 럭키박스! 묻고 더블로 가! (잔여시간 : {waiting_time}초)", description = f"참가를 원하시면 ✅를 클릭해주세요!", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
 			)
 		if memo_data != "":
@@ -3261,21 +3261,27 @@ class mainCog(commands.Cog):
 		cache_msg = await ctx.fetch_message(game_message.id)
 
 		for i in range(waiting_time):
-			embed.title = f"📦 랜덤박스! 묻고 더블로 가! (잔여시간 : {waiting_time - i}초)"			
+			embed.title = f"📦 럭키박스! 묻고 더블로 가! (잔여시간 : {waiting_time - i}초)"			
 			await game_message.edit(embed=embed)
 			cache_msg = await ctx.fetch_message(game_message.id)
 			if cache_msg.reactions[1].count >= 2:
 				tmp_users = await cache_msg.reactions[1].users().flatten()
 				for user in tmp_users:
 					if user.id == ctx.author.id:
-						embed.title = f"😫 랜덤박스! 취소! 😱"
+						embed.title = f"😫 럭키박스! 취소! 😱"
 						embed.description = ""
 						await game_message.edit(embed=embed)	
 						return await ctx.send(f"```게임이 취소되었습니다.!```")
 			await asyncio.sleep(1)
 
+		if cache_msg.reactions[0].count == 1:
+			embed.title = f"😫 럭키박스! 추첨 실패! 😱"
+			embed.description = ""
+			await game_message.edit(embed=embed)
+			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
+
 		if num_cong >= cache_msg.reactions[0].count-1:
-			embed.title = f"😫 랜덤박스! 추첨 실패! 😱"
+			embed.title = f"😫 럭키박스! 추첨 실패! 😱"
 			embed.description = ""
 			await game_message.edit(embed=embed)		
 			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
@@ -3290,10 +3296,7 @@ class mainCog(commands.Cog):
 
 		user_name_list : list = []
 		for user in participant_users:
-			user_name_list.append(user.name)
-
-		if len(user_name_list) <= 0:
-			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
+			user_name_list.append(user.display_name)
 
 		for _ in range(num_cong + 5):
 			random.shuffle(user_name_list)
@@ -3303,12 +3306,12 @@ class mainCog(commands.Cog):
 
 		lose_user = list(set(user_name_list)-set(result_users))
 
-		embed.title = f"🎉 랜덤박스! 결과발표! 🎉"
+		embed.title = f"🎉 럭키박스! 결과발표! 🎉"
 		embed.description = ""
-		embed.add_field(name = "👥 참가자", value =  f"```fix\n{', '.join(user_name_list)}```", inline=False)
-		embed.add_field(name = "😍 당첨", value =  f"```fix\n{', '.join(result_users)}```")
+		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"```fix\n{', '.join(user_name_list)}```", inline=False)
+		embed.add_field(name = f"😍 당첨 ({num_cong}명)", value =  f"```fix\n{', '.join(result_users)}```")
 		if len(lose_user) != 0:
-			embed.add_field(name = "😭 낙첨", value =  f"```{', '.join(lose_user)}```")
+			embed.add_field(name = f"😭 낙첨 ({len(lose_user)}명)", value =  f"```{', '.join(lose_user)}```")
 		return await game_message.edit(embed=embed)
 
 	################ ?????????????? ################ 
