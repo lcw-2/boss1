@@ -2250,12 +2250,12 @@ class mainCog(commands.Cog):
 					tmp_boss_information[0] = '``` ```'
 
 				embed = discord.Embed(
-						title = "----- 보스탐 정보 -----",
+						title = "===== 보스타임 정보 =====",
 						description= boss_information[0],
 						color=0x0000ff
 						)
 				embed.add_field(
-						name="----- 미예약 보스 -----",
+						name="===== 미예약 보스 =====",
 						value= tmp_boss_information[0],
 						inline = False
 						)				
@@ -2268,7 +2268,7 @@ class mainCog(commands.Cog):
 					boss_information[0] = '``` ```'
 
 				embed = discord.Embed(
-						title = "----- 보스탐 정보 -----",
+						title = "===== 보스타임 정보 =====",
 						description= boss_information[0],
 						color=0x0000ff
 						)
@@ -2295,7 +2295,7 @@ class mainCog(commands.Cog):
 					tmp_boss_information[0] = '``` ```'
 
 				embed = discord.Embed(
-					title = "----- 미예약 보스 -----",
+					title = "===== 미예약 보스 =====",
 					description= tmp_boss_information[0],
 					color=0x0000ff
 					)
@@ -2427,7 +2427,7 @@ class mainCog(commands.Cog):
 				fixedboss_information[0] = '``` ```'
 	
 			embed = discord.Embed(
-					title = "----- 고 정 보 스 -----",
+					title = "===== 고 정 보 스 =====",
 					description= fixedboss_information[0],
 					color=0x0000ff
 					)
@@ -2452,7 +2452,7 @@ class mainCog(commands.Cog):
 				boss_information[0] = '``` ```'
 
 			embed = discord.Embed(
-					title = "----- 보스탐 정보 -----",
+					title = "===== 보스타임 정보 =====",
 					description= boss_information[0],
 					color=0x0000ff
 					)
@@ -2480,7 +2480,7 @@ class mainCog(commands.Cog):
 				tmp_boss_information[0] = '``` ```'
 
 			embed = discord.Embed(
-				title = "----- 미예약 보스 -----",
+				title = "===== 미예약 보스 =====",
 				description= tmp_boss_information[0],
 				color=0x0000ff
 				)
@@ -3549,7 +3549,7 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 						tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
 						tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
 						embed = discord.Embed(
-								description= '```다음 ' + bossData[i][0] + ' ' + bossTimeString[i] + '입니다.```',
+								description= '```다음  ' + bossData[i][0] + ' ' + bossTimeString[i] + '입니다.```',
 								color=0xff0000
 								)
 						await self.get_channel(channel).send(embed=embed, tts=False)
@@ -3598,7 +3598,7 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 							tmp_bossTimeString[i] = bossTimeString[i] = temptime.strftime('%H:%M:%S')
 							tmp_bossDateString[i] = bossDateString[i] = temptime.strftime('%Y-%m-%d')
 							embed = discord.Embed(
-									description= '```다음 ' + bossData[i][0] + ' ' + bossTimeString[i] + '입니다.```',
+									description= '```다음 시간은 ' + bossData[i][0] + ' ' + bossTimeString[i] + '입니다.```',
 									color=0xff0000
 									)
 							await self.get_channel(channel).send(embed=embed, tts=False)
@@ -3617,7 +3617,7 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 								tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
 								tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
 								embed = discord.Embed(
-										description= '```다음 ' + bossData[i][0] + ' ' + bossTimeString[i] + '입니다.```',
+										description= '```다음 시간은 ' + bossData[i][0] + ' ' + bossTimeString[i] + '입니다.```',
 										color=0xff0000
 										)
 								await self.get_channel(channel).send(embed=embed, tts=False)
@@ -3717,7 +3717,7 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 	async def close(self):
 		await self.session.close()
 		await super().close()
-		print("일상디코봇 종료 완료.")
+		print("멍멍봇 종료 완료.")
 
 ilsang_distribution_bot : IlsangDistributionBot = IlsangDistributionBot()
 ilsang_distribution_bot.add_cog(mainCog(ilsang_distribution_bot))
