@@ -1047,7 +1047,7 @@ class taskCog(commands.Cog):
 										await self.bot.get_channel(channel).send("```" +  bossData[i][0] + ' 미입력 됐습니다.```', tts=False)
 										embed = discord.Embed(
 											description= '```#다음시간은 ' + bossData[i][0] + ' ' + bossTimeString[i] + ' 입니다.```',
-											color=0x00BFFF
+											color=0xff0000
 											)
 										await self.bot.get_channel(channel).send(embed=embed, tts=False)
 										try:
@@ -2252,7 +2252,7 @@ class mainCog(commands.Cog):
 				embed = discord.Embed(
 						title = "===== 보스타임 정보 =====",
 						description= boss_information[0],
-						color=0x00BFFF
+						color=0xff0000
 						)
 				embed.add_field(
 						name="===== 미예약 보스 =====",
@@ -2270,7 +2270,7 @@ class mainCog(commands.Cog):
 				embed = discord.Embed(
 						title = "===== 보스타임 정보 =====",
 						description= boss_information[0],
-						color=0x00BFFF
+						color=0xff0000
 						)
 				await ctx.send( embed=embed, tts=False)
 				for i in range(len(boss_information)-1):
@@ -3551,7 +3551,7 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 						embed = discord.Embed(
 								description= '```bossData[i][0][컷] ' + 
 							#다음시간은 + ' ' + bossTimeString[i] + ' 입니다.```',
-								color=0x00BFFF
+								color=0xff0000
 								)
 						await self.get_channel(channel).send(embed=embed, tts=False)
 
