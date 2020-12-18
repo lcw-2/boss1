@@ -1046,8 +1046,7 @@ class taskCog(commands.Cog):
 										tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
 										await self.bot.get_channel(channel).send("```" +  bossData[i][0] + ' 미입력 됐습니다.```', tts=False)
 										embed = discord.Embed(
-											description= '```보스 [컷]
-											#다음시간은 ' + bossData[i][0] + ' ' + bossTimeString[i] + ' 입니다.```',
+											description= '```#다음시간은 ' + bossData[i][0] + ' ' + bossTimeString[i] + ' 입니다.```',
 											color=0x00BFFF
 											)
 										await self.bot.get_channel(channel).send(embed=embed, tts=False)
